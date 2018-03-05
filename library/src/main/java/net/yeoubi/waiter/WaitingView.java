@@ -3,8 +3,6 @@ package net.yeoubi.waiter;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,18 +20,18 @@ public class WaitingView extends FrameLayout {
 
     private ProgressBar progressBar;
 
-    public WaitingView(@NonNull Context context) {
+    public WaitingView(Context context) {
         super(context);
         init(context);
     }
 
-    public WaitingView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public WaitingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
         setAttributes(attrs);
     }
 
-    public WaitingView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public WaitingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
         setAttributes(attrs);
@@ -49,7 +47,7 @@ public class WaitingView extends FrameLayout {
         addView(viewGroup);
     }
 
-    private void setAttributes(@Nullable AttributeSet attrs) {
+    private void setAttributes(AttributeSet attrs) {
         if (attrs == null) {
             return;
         }
