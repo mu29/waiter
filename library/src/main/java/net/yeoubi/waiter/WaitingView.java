@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-
 /**
  * @author InJung Chung
  */
@@ -41,7 +39,7 @@ public class WaitingView extends FrameLayout {
         LayoutInflater inflater = LayoutInflater.from(context);
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.view_waiting, this, false);
 
-        progressBar = new ProgressBar(context);
+        progressBar = new ProgressBar(context, null, android.R.attr.progressBarStyle);
         viewGroup.addView(progressBar);
 
         addView(viewGroup);
@@ -56,20 +54,26 @@ public class WaitingView extends FrameLayout {
 
         try {
             boolean isWaiting = attributes.getBoolean(R.styleable.WaitingView_waiting, false);
-            int position = attributes.getInteger(R.styleable.WaitingView_position, Gravity.CENTER);
+            int position = attributes.getInteger(R.styleable.WaitingView_waitingPosition, Gravity.CENTER);
             int color = attributes.getResourceId(R.styleable.WaitingView_waitingColor, 0);
             int width = attributes.getDimensionPixelOffset(R.styleable.WaitingView_waitingWidth, -1);
             int height = attributes.getDimensionPixelOffset(R.styleable.WaitingView_waitingHeight, -1);
+            int margin = attributes.getDimensionPixelSize(R.styleable.WaitingView_waitingMargin, 0);
+            int marginTop = attributes.getDimensionPixelSize(R.styleable.WaitingView_waitingMarginTop, margin);
+            int marginBottom = attributes.getDimensionPixelSize(R.styleable.WaitingView_waitingMarginBottom, margin);
+            int marginStart = attributes.getDimensionPixelSize(R.styleable.WaitingView_waitingMarginStart, margin);
+            int marginEnd = attributes.getDimensionPixelSize(R.styleable.WaitingView_waitingMarginEnd, margin);
 
             setWaiting(isWaiting);
             setPosition(position);
-            setWaitingColor(color);
+            setWaitingColor(getContext().getResources().getColor(color));
             if (width > -1) {
                 setWaitingWidth(width);
             }
             if (height > -1) {
                 setWaitingHeight(height);
             }
+            setWaitingMargin(marginStart, marginTop, marginEnd, marginBottom);
         } finally {
             attributes.recycle();
         }
@@ -85,10 +89,12 @@ public class WaitingView extends FrameLayout {
     /**
      * Setter for waiting attribute.
      */
-    public void setWaiting(boolean visible) {
+    public void setWaiting(boolean waiting) {
         if (progressBar != null) {
-            progressBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+            progressBar.setVisibility(waiting ? View.VISIBLE : View.GONE);
         }
+
+        setEnabled(!waiting);
     }
 
     /**
@@ -115,7 +121,7 @@ public class WaitingView extends FrameLayout {
      * Setter for progress bar color.
      */
     public void setWaitingColor(int color) {
-        progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
     public void setWaitingWidth(int width) {
@@ -135,6 +141,19 @@ public class WaitingView extends FrameLayout {
 
         ViewGroup.LayoutParams params = progressBar.getLayoutParams();
         params.height = height;
+        progressBar.requestLayout();
+    }
+
+    public void setWaitingMargin(int marginStart, int marginTop, int marginEnd, int marginBottom) {
+        if (progressBar == null) {
+            return;
+        }
+
+        ViewGroup.MarginLayoutParams params = (MarginLayoutParams) progressBar.getLayoutParams();
+        params.leftMargin = marginStart;
+        params.topMargin = marginTop;
+        params.rightMargin = marginEnd;
+        params.bottomMargin = marginBottom;
         progressBar.requestLayout();
     }
 }

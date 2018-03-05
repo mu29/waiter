@@ -5,12 +5,18 @@
         <attr name="waitingColor" format="reference"/>
         <attr name="waitingWidth" format="dimension"/>
         <attr name="waitingHeight" format="dimension"/>
-        <attr name="position" format="enum">
-            <enum name="top" value="48"/>
-            <enum name="bottom" value="80"/>
-            <enum name="left" value="3"/>
-            <enum name="right" value="5"/>
-            <enum name="center" value="17"/>
+        <attr name="waitingMargin" format="dimension"/>
+        <attr name="waitingMarginTop" format="dimension"/>
+        <attr name="waitingMarginBottom" format="dimension"/>
+        <attr name="waitingMarginStart" format="dimension"/>
+        <attr name="waitingMarginEnd" format="dimension"/>
+        <attr name="waitingPosition">
+            <flag name="top" value="48"/>
+            <flag name="bottom" value="80"/>
+            <flag name="left" value="3"/>
+            <flag name="right" value="5"/>
+            <flag name="center_vertical" value="16"/>
+            <flag name="center" value="17"/>
         </attr>
     </declare-styleable>
 
