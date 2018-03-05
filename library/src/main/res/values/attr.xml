@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WaitingView">
+        <attr name="waiting" format="boolean"/>
+        <attr name="waitingColor" format="reference"/>
+        <attr name="waitingWidth" format="dimension"/>
+        <attr name="waitingHeight" format="dimension"/>
+        <attr name="position" format="enum">
+            <enum name="top" value="48"/>
+            <enum name="bottom" value="80"/>
+            <enum name="left" value="3"/>
+            <enum name="right" value="5"/>
+            <enum name="center" value="17"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="WaitingButton">
+    </declare-styleable>
+</resources>
