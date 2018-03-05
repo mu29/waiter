@@ -106,8 +106,9 @@ public class WaitingView extends FrameLayout {
             return;
         }
 
-        ViewGroup.LayoutParams params = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT, position);
-        progressBar.setLayoutParams(params);
+        LayoutParams params = (LayoutParams) progressBar.getLayoutParams();
+        params.gravity = position;
+        progressBar.requestLayout();
     }
 
     /**
@@ -122,8 +123,9 @@ public class WaitingView extends FrameLayout {
             return;
         }
 
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(width, progressBar.getLayoutParams().height);
-        progressBar.setLayoutParams(params);
+        ViewGroup.LayoutParams params = progressBar.getLayoutParams();
+        params.width = width;
+        progressBar.requestLayout();
     }
 
     public void setWaitingHeight(int height) {
@@ -131,7 +133,8 @@ public class WaitingView extends FrameLayout {
             return;
         }
 
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(progressBar.getLayoutParams().width, height);
-        progressBar.setLayoutParams(params);
+        ViewGroup.LayoutParams params = progressBar.getLayoutParams();
+        params.height = height;
+        progressBar.requestLayout();
     }
 }
